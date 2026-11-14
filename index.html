@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101b2d">
+<title>NETI PRO INVEST — Démonstration</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--navy:#101b2d;--navy2:#172943;--gold:#d7ad55;--bg:#f3f5f8;--ink:#172033;--muted:#718096;--line:#e4e8ef;--green:#16835d;--red:#bd4b4b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(130deg,var(--navy),var(--navy2));color:white;padding:22px 18px 18px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;max-width:1050px;margin:auto}
+.brand{font-weight:850;letter-spacing:.7px;font-size:18px}.brand span{color:var(--gold)}
+.tag{font-size:11px;border:1px solid #64748b;border-radius:30px;padding:5px 9px;color:#e7edf5}
+.hero{max-width:1050px;margin:22px auto 0}.hero small{color:#c5cfdd}.hero h1{margin:5px 0;font-size:25px}.hero p{margin:5px 0 0;color:#d0d9e6;font-size:13px}
+nav{display:flex;gap:7px;overflow:auto;padding:12px max(14px,calc((100% - 1050px)/2));background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}
+nav button{white-space:nowrap;border:0;background:#f0f3f7;color:#344054;border-radius:9px;padding:10px 13px;font-weight:650}
+nav button.active{background:var(--navy);color:white}
+main{max-width:1050px;margin:18px auto;padding:0 14px 36px}
+.notice{background:#fff7e6;border:1px solid #f1d69a;color:#785515;padding:12px 14px;border-radius:12px;font-size:12px;line-height:1.5;margin-bottom:15px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:0 2px 8px #14213d08}
+.metric small,.muted{color:var(--muted);font-size:12px}.metric strong{display:block;font-size:23px;margin-top:8px}.gold{color:#a8791e}.section{margin-top:18px}.section h2{font-size:17px;margin:0 0 11px}.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+button,.btn{cursor:pointer}.primary,.secondary,.danger{border:0;border-radius:9px;padding:11px 14px;font-weight:700}.primary{background:var(--navy);color:white}.secondary{background:#edf1f6;color:#27364b}.danger{background:#fff0f0;color:#a33}
+input,select,textarea{width:100%;border:1px solid #d8dee8;border-radius:9px;padding:11px;font:inherit;background:white;color:var(--ink)}
+label{display:block;font-size:12px;font-weight:700;margin:10px 0 6px}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:11px}
+.pill{display:inline-block;border-radius:20px;padding:4px 8px;background:#fff4d9;color:#876017;font-size:11px;font-weight:700}
+.green{color:var(--green)}.red{color:var(--red)}.hidden{display:none!important}.empty{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:1fr}.hero h1{font-size:22px}.metric strong{font-size:20px}table{font-size:12px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top"><div class="brand">NETI PRO <span>INVEST</span></div><div class="tag">VERSION DÉMO</div></div>
+ <div class="hero"><small>AGRICULTURE & ÉLEVAGE • HAUT-KATANGA</small><h1>Construisons une activité productive.</h1><p>Suivi des projets, des recettes, des dépenses et des rapports.</p></div>
+</header>
+<nav id="nav">
+ <button class="active" data-tab="dashboard">Accueil</button><button data-tab="projects">Projets</button><button data-tab="reports">Rapports</button><button data-tab="requests">Demandes</button><button data-tab="admin">Administration</button>
+</nav>
+<main>
+ <div class="notice"><b>Mode démonstration :</b> aucun dépôt, investissement ou retrait réel n'est effectué. Les montants saisis restent sur cet appareil. Ne collectez pas d'argent du public avant validation juridique, bancaire et réglementaire, et avant la mise en place d'un système sécurisé.</div>
+ <section id="dashboard" class="tab">
+  <div class="grid">
+   <div class="card metric"><small>Recettes enregistrées</small><strong id="totalRevenue">0 FC</strong></div>
+   <div class="card metric"><small>Dépenses enregistrées</small><strong id="totalExpense">0 FC</strong></div>
+   <div class="card metric"><small>Résultat net</small><strong class="gold" id="netResult">0 FC</strong></div>
+   <div class="card metric"><small>Demandes en attente</small><strong id="pendingCount">0</strong></div>
+  </div>
+  <div class="section card">
+   <div class="row"><h2>Activité récente</h2><span class="pill">Données locales</span></div>
+   <div id="recent"></div>
+  </div>
+  <div class="section card">
+   <h2>Résumé des rapports</h2>
+   <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+    <div><small class="muted">Résultat du mois en cours</small><h2 id="monthResult">0 FC</h2></div>
+    <div><small class="muted">Résultat du jour</small><h2 id="dayResult">0 FC</h2></div>
+   </div>
+   <p class="muted">Ces chiffres représentent les recettes moins les dépenses réellement saisies. Ils ne constituent pas une promesse de rendement aux membres.</p>
+  </div>
+ </section>
+ <section id="projects" class="tab hidden">
+  <div class="card">
+   <div class="row"><h2>Projet pilote</h2><span class="pill">À confirmer</span></div>
+   <h3>Agriculture et élevage combinés</h3>
+   <p class="muted">Territoire du Haut-Katanga (localisation exacte à préciser).</p>
+   <p>Volets envisagés : cultures vivrières, élevage, stockage et commercialisation. Les espèces, les superficies, le budget et le calendrier seront définis après étude de faisabilité.</p>
+  </div>
+  <div class="section card"><h2>Créer un projet (démo)</h2>
+   <form id="projectForm"><label>Nom du projet</label><input id="projectName" required placeholder="Ex. Ferme pilote — maïs et poulets">
+   <label>Territoire / localité</label><input id="projectPlace" required placeholder="Nom du territoire">
+   <label>Description</label><textarea id="projectDesc" rows="3" placeholder="Activités prévues, calendrier..."></textarea>
+   <div class="actions"><button class="primary">Enregistrer le projet</button></div></form>
+   <div id="projectList"></div>
+  </div>
+ </section>
+ <section id="reports" class="tab hidden">
+  <div class="card"><h2>Enregistrer une recette ou une dépense</h2>
+   <p class="muted">Saisir uniquement une opération réelle, avec justificatif conservé hors de cette démo.</p>
+   <form id="entryForm">
+    <div class="formgrid"><div><label>Type d'opération</label><select id="entryType"><option value="recette">Recette / vente</option><option value="depense">Dépense</option></select></div><div><label>Montant (FC)</label><input id="entryAmount" type="number" min="1" step="1" required placeholder="Ex. 250000"></div></div>
+    <label>Description</label><input id="entryDesc" required placeholder="Ex. Vente de maïs / achat d'aliments">
+    <label>Date</label><input id="entryDate" type="date" required>
+    <div class="actions"><button class="primary">Enregistrer l'opération</button></div>
+   </form>
+  </div>
+  <div class="section card"><div class="row"><h2>Rapport journalier</h2><input style="max-width:160px" id="dailyDate" type="date"></div><div id="dailySummary"></div></div>
+  <div class="section card"><div class="row"><h2>Rapport mensuel</h2><input style="max-width:160px" id="monthlyDate" type="month"></div><div id="monthlySummary"></div></div>
+  <div class="section card"><h2>Journal des opérations</h2><div id="ledger"></div></div>
+ </section>
+ <section id="requests" class="tab hidden">
+  <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+   <div class="card"><h2>Demande de dépôt</h2><p class="muted">Enregistrement fictif d'une demande, sans transfert d'argent.</p>
+    <form id="depositForm"><label>Nom du demandeur</label><input id="depName" required><label>Numéro Mobile Money</label><input id="depPhone" required placeholder="Ex. 09..."><label>Montant (FC)</label><input id="depAmount" type="number" min="1" required><label>Opérateur</label><select id="depOperator"><option>Airtel Money</option><option>Orange Money</option><option>M-Pesa</option></select><div class="actions"><button class="primary">Créer demande démo</button></div></form>
+   </div>
+   <div class="card"><h2>Demande de retrait</h2><p class="muted">Aucun paiement n'est déclenché.</p>
+    <form id="withdrawForm"><label>Nom du demandeur</label><input id="withName" required><label>Numéro Mobile Money</label><input id="withPhone" required><label>Montant demandé (FC)</label><input id="withAmount" type="number" min="1" required><label>Opérateur</label><select id="withOperator"><option>Airtel Money</option><option>Orange Money</option><option>M-Pesa</option></select><div class="actions"><button class="primary">Créer demande démo</button></div></form>
+   </div>
+  </div>
+  <div class="section card"><h2>Demandes enregistrées</h2><div id="requestList"></div></div>
+ </section>
+ <section id="admin" class="tab hidden">
+  <div class="card"><h2>Espace propriétaire — démonstration</h2><p class="muted">Dans la version réelle, cet espace nécessitera une connexion administrateur sécurisée, des rôles et un journal d'audit hébergé sur serveur.</p>
+   <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+    <div><small class="muted">Opérations financières</small><h2 id="adminOps">0</h2></div><div><small class="muted">Projets enregistrés</small><h2 id="adminProjects">0</h2></div>
+   </div>
+   <div class="actions"><button class="secondary" id="exportBtn">Exporter les données CSV</button><button class="danger" id="resetBtn">Réinitialiser la démo</button></div>
+  </div>
+  <div class="section card"><h2>Étapes avant lancement réel</h2><ol><li>Préciser le territoire et le terrain disponible.</li><li>Étudier les coûts, rendements agricoles et risques d'élevage.</li><li>Formaliser l'entreprise et faire vérifier le modèle de collecte / investissement.</li><li>Choisir un prestataire Mobile Money agréé et obtenir son intégration officielle.</li><li>Déployer une base de données sécurisée avec authentification, sauvegardes et audit.</li></ol></div>
+ </section>
+</main>
+<footer>NETI PRO INVEST • Prototype local • Version 0.1 • Aucun service financier réel</footer>
+<script>
+const KEY='netiproinvest_demo_v1';
+const blank={entries:[],requests:[],projects:[]};
+let data;try{data=JSON.parse(localStorage.getItem(KEY))||structuredClone(blank)}catch(e){data=JSON.parse(JSON.stringify(blank))}
+const $=id=>document.getElementById(id);
+const fmt=n=>new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(n||0)+' FC';
+const today=()=>new Date().toISOString().slice(0,10);
+$('entryDate').value=today();$('dailyDate').value=today();$('monthlyDate').value=today().slice(0,7);
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function sum(items,type){return items.filter(x=>x.type===type).reduce((a,x)=>a+Number(x.amount),0)}
+function net(items){return sum(items,'recette')-sum(items,'depense')}
+function table(items,empty){if(!items.length)return '<div class="empty">'+empty+'</div>';return '<div style="overflow:auto"><table><thead><tr><th>Date</th><th>Opération</th><th>Montant</th></tr></thead><tbody>'+items.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.description)}</td><td class="${x.type==='recette'?'green':'red'}">${x.type==='recette'?'+':'−'} ${fmt(x.amount)}</td></tr>`).join('')+'</tbody></table></div>'}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(){
+ const rev=sum(data.entries,'recette'),exp=sum(data.entries,'depense');
+ $('totalRevenue').textContent=fmt(rev);$('totalExpense').textContent=fmt(exp);$('netResult').textContent=fmt(rev-exp);
+ $('pendingCount').textContent=data.requests.filter(x=>x.status==='En attente').length;
+ $('adminOps').textContent=data.entries.length;$('adminProjects').textContent=data.projects.length;
+ $('recent').innerHTML=table(data.entries.slice(-5),'Aucune opération enregistrée.');
+ $('projectList').innerHTML=data.projects.length?'<h3>Projets créés</h3>'+data.projects.map(p=>`<p><b>${esc(p.name)}</b><br><span class="muted">${esc(p.place)} — ${esc(p.desc||'Sans description')}</span></p>`).join(''):'<div class="empty">Aucun projet supplémentaire.</div>';
+ const d=$('dailyDate').value||today(),m=$('monthlyDate').value||today().slice(0,7);
+ const day=data.entries.filter(x=>x.date===d),month=data.entries.filter(x=>x.date.startsWith(m));
+ $('dayResult').textContent=fmt(net(day));$('monthResult').textContent=fmt(net(month));
+ $('dailySummary').innerHTML=`<p>Recettes : <b class="green">${fmt(sum(day,'recette'))}</b> • Dépenses : <b class="red">${fmt(sum(day,'depense'))}</b> • Solde : <b>${fmt(net(day))}</b></p>`;
+ $('monthlySummary').innerHTML=`<p>Recettes : <b class="green">${fmt(sum(month,'recette'))}</b> • Dépenses : <b class="red">${fmt(sum(month,'depense'))}</b> • Solde : <b>${fmt(net(month))}</b></p>`;
+ $('ledger').innerHTML=table(data.entries,'Aucune opération.');
+ $('requestList').innerHTML=data.requests.length?'<div style="overflow:auto"><table><thead><tr><th>Type</th><th>Nom</th><th>Montant</th><th>Opérateur</th><th>Statut</th></tr></thead><tbody>'+data.requests.slice().reverse().map(r=>`<tr><td>${r.kind}</td><td>${esc(r.name)}</td><td>${fmt(r.amount)}</td><td>${esc(r.operator)}</td><td><span class="pill">${r.status}</span></td></tr>`).join('')+'</tbody></table></div>':'<div class="empty">Aucune demande.</div>';
+}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));$(b.dataset.tab).classList.remove('hidden')}));
+$('entryForm').addEventListener('submit',e=>{e.preventDefault();data.entries.push({type:$('entryType').value,amount:Number($('entryAmount').value),description:$('entryDesc').value,date:$('entryDate').value});e.target.reset();$('entryDate').value=today();save()});
+$('projectForm').addEventListener('submit',e=>{e.preventDefault();data.projects.push({name:$('projectName').value,place:$('projectPlace').value,desc:$('projectDesc').value});e.target.reset();save()});
+function req(kind,name,phone,amount,operator){data.requests.push({kind,name,phone,amount:Number(amount),operator,status:'En attente',created:today()});save()}
+$('depositForm').addEventListener('submit',e=>{e.preventDefault();req('Dépôt',$('depName').value,$('depPhone').value,$('depAmount').value,$('depOperator').value);e.target.reset();alert('Demande de démonstration enregistrée. Aucun paiement effectué.')});
+$('withdrawForm').addEventListener('submit',e=>{e.preventDefault();req('Retrait',$('withName').value,$('withPhone').value,$('withAmount').value,$('withOperator').value);e.target.reset();alert('Demande de démonstration enregistrée. Aucun retrait effectué.')});
+$('dailyDate').addEventListener('change',render);$('monthlyDate').addEventListener('change',render);
+$('resetBtn').addEventListener('click',()=>{if(confirm('Effacer toutes les données locales de démonstration ?')){data=JSON.parse(JSON.stringify(blank));save()}});
+$('exportBtn').addEventListener('click',()=>{let rows=[['type','date','description','montant'],...data.entries.map(x=>[x.type,x.date,x.description,x.amount])];let csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='neti-pro-invest-demo.csv';a.click();URL.revokeObjectURL(a.href)});
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+</script>
+</body></html>

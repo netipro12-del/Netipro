@@ -1,0 +1,9 @@
+{
+  "name": "NETI PRO INVEST",
+  "short_name": "NETI INVEST",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f5f8",
+  "theme_color": "#101b2d",
+  "lang": "fr"
+}
